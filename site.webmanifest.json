@@ -1,0 +1,19 @@
+{
+  "name": "Алланур Ачылов",
+  "short_name": "ACHYLOV",
+  "icons": [
+    {
+      "src": "/1000.png",
+      "type": "image/png",
+      "sizes": "1000x1000"
+    },
+    {
+      "src": "/512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "theme_color": "#4361ee",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

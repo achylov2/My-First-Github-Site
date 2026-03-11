@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACHYLOV.RU</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;font-family:'Orbitron',sans-serif}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:black;
+  color:#fff;
+  overflow:hidden;
+}
+
+/* MATRIX */
+#matrix{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
+
+/* CRT */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.025) 0,
+    rgba(255,255,255,.025) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events:none;
+  opacity:.08;
+}
+
+/* LAYOUT */
+.container{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.card{
+  width:100%;
+  max-width:420px;
+  background:rgba(5,15,5,.25);
+  border-radius:22px;
+  padding:34px;
+  text-align:center;
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(0,255,120,.18);
+  box-shadow:
+    0 0 35px rgba(0,255,120,.25),
+    inset 0 0 20px rgba(0,255,120,.08);
+}
+
+/* TITLE */
+.glitch{
+  font-size:32px;
+  letter-spacing:4px;
+  position:relative;
+  animation:rgbShift 2.5s infinite;
+}
+.glitch::before,
+.glitch::after{
+  content:attr(data-text);
+  position:absolute;
+  left:0;
+  width:100%;
+}
+.glitch::before{
+  color:#00ff99;
+  animation:glitchTop 1.8s infinite;
+}
+.glitch::after{
+  color:#00ffff;
+  animation:glitchBottom 1.3s infinite;
+}
+
+@keyframes glitchTop{
+  20%{transform:translate(-2px,-2px)}
+  40%{transform:translate(2px,1px)}
+}
+@keyframes glitchBottom{
+  20%{transform:translate(2px,2px)}
+  40%{transform:translate(-1px,-2px)}
+}
+@keyframes rgbShift{
+  0%{text-shadow:2px 0 #00ff99,-2px 0 #00ffff}
+  50%{text-shadow:-2px 0 #00ff99,2px 0 #00ffff}
+  100%{text-shadow:2px 0 #00ff99,-2px 0 #00ffff}
+}
+
+.tagline{
+  font-size:13px;
+  opacity:.85;
+  margin:14px 0 24px;
+}
+
+/* BUTTONS */
+.btn{
+  display:block;
+  margin:14px 0;
+  padding:15px;
+  border-radius:14px;
+  text-decoration:none;
+  color:#fff;
+  font-weight:600;
+  animation:flicker 2.6s infinite;
+  transition:.25s;
+}
+.btn:hover{transform:scale(1.07)}
+
+@keyframes flicker{
+  40%{opacity:.85}
+  55%{opacity:.7}
+}
+
+.neon-green{box-shadow:0 0 18px #00ff99,inset 0 0 12px #00ff99}
+.neon-blue{box-shadow:0 0 18px #00ffff,inset 0 0 12px #00ffff}
+.neon-purple{box-shadow:0 0 18px #9b5cff,inset 0 0 12px #9b5cff}
+
+footer{
+  margin-top:16px;
+  font-size:11px;
+  opacity:.6;
+}
+
+/* MOBILE */
+@media (max-width:600px){
+  .card{max-width:94%;padding:22px;backdrop-filter:blur(6px)}
+  .glitch{font-size:26px}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<main class="container">
+  <div class="card">
+
+    <h1 class="glitch" data-text="ALLAN">ALLAN</h1>
+    <p class="tagline">⚡ Cyber • Tech • Digital ⚡</p>
+
+    <a class="btn neon-green" href="/insta" target="_blank">📸 Instagram</a>
+    <a class="btn neon-blue" href="/vk" target="_blank">📘 VK</a>
+    <a class="btn neon-purple" href="/discord" target="_blank">💬 Discord</a>
+    <a class="btn neon-green" href="/mail" target="_blank">📧 Mail</a>
+
+    <footer>© 2026 achylov.ru</footer>
+
+  </div>
+</main>
+
+<script>
+/* MATRIX – REAL BINARY */
+const c=document.getElementById("matrix"),ctx=c.getContext("2d");
+c.width=innerWidth;c.height=innerHeight;
+
+const letters="01";
+const size=14;
+const cols=Math.floor(c.width/size);
+let drops=Array(cols).fill(1);
+const speed = innerWidth < 600 ? 80 : 50;
+
+setInterval(()=>{
+  ctx.fillStyle="rgba(0,0,0,.08)";
+  ctx.fillRect(0,0,c.width,c.height);
+  ctx.fillStyle="#00ff99";
+  ctx.font=size+"px monospace";
+
+  drops.forEach((y,i)=>{
+    const char = letters[Math.random()>0.5?1:0];
+    ctx.fillText(char,i*size,y*size);
+    if(y*size>c.height && Math.random()>0.975) drops[i]=0;
+    drops[i]++;
+  });
+}, speed);
+</script>
+
+</body>
+</html>
