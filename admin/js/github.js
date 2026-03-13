@@ -2,10 +2,10 @@ async function uploadFile(path,content){
 
 const token = localStorage.getItem("github_token")
 
-const repo = "USERNAME/REPO"
+const repo = "achylov2/My-First-Github-Site"
 
 const data={
-message:"update from admin",
+message:"update from admin panel",
 content:btoa(content)
 }
 
@@ -19,7 +19,7 @@ body:JSON.stringify(data)
 })
 .then(r=>r.json())
 .then(d=>{
-alert("Updated!")
+alert("File updated!")
 })
 
 }
