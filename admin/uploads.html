@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Upload Files</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="login-box">
+
+<h2>Upload File</h2>
+
+<input type="file" id="file">
+
+<button onclick="upload()">Upload</button>
+
+</div>
+
+<script src="js/github.js"></script>
+
+<script>
+
+async function upload(){
+
+const file = document.getElementById("file").files[0]
+
+const reader = new FileReader()
+
+reader.onload = function(){
+
+let content = reader.result.split(",")[1]
+
+uploadFile(file.name, atob(content))
+
+}
+
+reader.readAsDataURL(file)
+
+}
+
+</script>
+
+</body>
+</html>
