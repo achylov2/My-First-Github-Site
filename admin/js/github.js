@@ -1,16 +1,13 @@
-async function uploadFile(path, content) {
+async function uploadFile(path, base64) {
 
 const token = localStorage.getItem("github_token")
 const repo = "achylov2/My-First-Github-Site"
 
 const url = `https://api.github.com/repos/${repo}/contents/${path}`
 
-// кодируем файл
-const encoded = btoa(content)
-
 const data = {
 message: "upload from admin panel",
-content: encoded
+content: base64
 }
 
 fetch(url, {
@@ -25,11 +22,12 @@ body: JSON.stringify(data)
 
 const result = await res.json()
 
+console.log(result)
+
 if(result.content){
 alert("File uploaded successfully 🚀")
-}
-else{
-alert("Error: " + JSON.stringify(result))
+}else{
+alert("Error: " + result.message)
 }
 
 })
