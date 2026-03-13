@@ -30,9 +30,9 @@ const reader = new FileReader()
 
 reader.onload = function(){
 
-let content = reader.result.split(",")[1]
+let base64 = reader.result.split(",")[1]
 
-uploadFile(file.name, atob(content))
+uploadFile("uploads/" + file.name, base64)
 
 }
 
